@@ -1,0 +1,26 @@
+{% extends "feeds/base.html" %}
+
+{% block title %}Blog Feeds{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h1>Blog Feeds</h1>
+  <div>
+  {% for feed in feeds %}
+  <div class="card bg-light">
+    <h5 class="card-header">{{ feed.title }}</h5>
+    <div class="card-body">
+      <p class="card-text">{{ feed.description }}</p>
+      <div class="float-right">
+        <a href="{% url 'posts' slug=feed.slug %}" class="btn btn-primary">View posts...</a>&nbsp;
+        <a href="{% url 'feed' slug=feed.slug %}" class="btn btn-warning">RSS</a>
+      </div>
+    </div>
+  </div>
+  <p></p>
+  {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
