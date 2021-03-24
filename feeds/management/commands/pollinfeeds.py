@@ -31,8 +31,8 @@ class Command(BaseCommand):
                 # Strip out some bare text for the description
                 soup = BeautifulSoup(entry.summary, features="html.parser")
                 description = soup.text
-                description = (description[:300] + '..') if \
-                    len(description) > 300 else description
+                description = (description[:1000] + '..') if \
+                    len(description) > 1000 else description
                 description = description.replace('\n', '<br/> ')
 
                 values = {'title': entry.title,
