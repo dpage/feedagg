@@ -11,7 +11,7 @@
   <div class="card bg-light">
     <h5 class="card-header">{{ feed.title }}</h5>
     <div class="card-body">
-      <p class="card-text">{{ feed.description }}</p>
+      <p class="card-text">{{ feed.description|safe }}</p>
       <div class="float-right">
         <a href="{% url 'posts' slug=feed.slug %}" class="btn btn-primary">View posts...</a>&nbsp;
         <a href="{% url 'feed' slug=feed.slug %}" class="btn btn-warning">RSS</a>
