@@ -82,7 +82,7 @@ class Post(models.Model):
     description = models.TextField(null=False, blank=False,
                                    help_text="The description or summary of"
                                              " the post.")
-    override_desc = models.TextField(null=True, blank=False,
+    override_desc = models.TextField(null=True, blank=True,
                                      help_text="The description or summary of"
                                                " the post. Overrides the auto-"
                                                "fetched description.")
