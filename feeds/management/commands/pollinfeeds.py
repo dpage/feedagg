@@ -1,6 +1,7 @@
 import feedparser
 import dateutil.parser as dup
 import pytz
+import re
 from bs4 import BeautifulSoup
 
 from django.core.management.base import BaseCommand
@@ -34,6 +35,9 @@ class Command(BaseCommand):
                 description = (description[:1000] + '...') if \
                     len(description) > 1000 else description
                 description = description.replace('\n', '<br/> ')
+
+                # Ensure we have a space following any full stops
+                description = re.sub(r"\.(?=\S)", ". ", description)
 
                 values = {'title': entry.title,
                           'author': entry.author,
