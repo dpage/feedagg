@@ -12,7 +12,7 @@
       <h5 class="card-header">{{ post.title }}</h5>
       <div class="card-body">
         <p class="card-text"><i><b>Published:</b> {{ post.published }}</i></p>
-        <p class="card-text">{{ post.override_desc|default_if_none:post.description|safe }}</p>
+        <p class="card-text">{{ post.override_desc|default:post.description|safe }}</p>
         <a href="{{ post.link }}" class="btn btn-primary float-right">Read more...</a>
       </div>
     </div>
