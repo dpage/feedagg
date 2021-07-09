@@ -11,7 +11,7 @@ class InFeedAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'published', 'enabled')
+    list_display = ('__str__', 'published', 'override_pub', 'enabled')
     list_filter = ('enabled', 'in_feed')
 
 

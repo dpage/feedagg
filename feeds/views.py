@@ -70,8 +70,13 @@ def feed(request, slug):
         fe.author({'name': post.author})
         fe.link(href=post.link)
         fe.guid(post.guid)
-        fe.pubDate(post.published)
-        fe.updated(post.published)
+
+        if post.override_pub is not None:
+            fe.pubDate(post.override_pub)
+            fe.updated(post.override_pub)
+        else:
+            fe.pubDate(post.published)
+            fe.updated(post.published)
 
     data = fg.atom_str(pretty=True)
 

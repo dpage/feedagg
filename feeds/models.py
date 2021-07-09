@@ -90,10 +90,14 @@ class Post(models.Model):
                             help_text="The URL of the post.")
     guid = models.CharField(null=False, blank=False, max_length=1024,
                             help_text="The unique ID of the post.")
-    published = models.DateTimeField(auto_now=False, auto_now_add=False,
-                                     null=False,
+    published = models.DateTimeField(null=False,
                                      help_text="The publication date/time of"
                                                " the post.")
+    override_pub = models.DateTimeField(null=True, blank=True,
+                                        help_text="The publication date/time "
+                                                  "of the post. Overrides "
+                                                  "the auto-fetched "
+                                                  "date/time.")
 
     class Meta:
         ordering = ['-published', 'in_feed__name', 'title']
