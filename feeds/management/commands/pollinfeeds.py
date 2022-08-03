@@ -39,8 +39,13 @@ class Command(BaseCommand):
                 # Ensure we have a space following any full stops
                 description = re.sub(r"\.(?=\S)", ". ", description)
 
+                if 'author' in entry:
+                    author = entry.author
+                else:
+                    author = 'Unknown'
+
                 values = {'title': entry.title,
-                          'author': entry.author,
+                          'author': author,
                           'description': description,
                           'link': entry.link,
                           'published': ts
