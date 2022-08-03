@@ -42,7 +42,7 @@ class Command(BaseCommand):
                 if 'author' in entry:
                     author = entry.author
                 else:
-                    author = 'Unknown'
+                    author = feed.out_feed.title
 
                 values = {'title': entry.title,
                           'author': author,
@@ -75,7 +75,7 @@ class Command(BaseCommand):
 
         for feed, latest in recents.items():
             out_feed = OutFeed.objects.get(id=feed)
-            out_feed.updated=latest
+            out_feed.updated = latest
             out_feed.save()
 
 
