@@ -1,24 +1,36 @@
 import feedparser
 import dateutil.parser as dup
+import pprint
 import pytz
 import re
 from bs4 import BeautifulSoup
 
 from django.core.management.base import BaseCommand
 
-from feeds.models import OutFeed, InFeed, Post
+from feeds.models import OutFeed, InFeed, Post, PollError
 
 
 class Command(BaseCommand):
     help = 'Poll all the active inbound feeds and get any new posts.'
 
     def handle(self, *args, **options):
+        pp = pprint.PrettyPrinter(indent=4)
+
         # Get all the enabled feeds
         feeds = InFeed.objects.filter(enabled=True)
         recents = {}
 
         for feed in feeds:
             data = feedparser.parse(feed.feed_url)
+
+            if data.status > 400:
+                e = PollError()
+                e.in_feed = feed
+                e.error_code = data.status
+                e.error_summary = "HTTP status code {} polling feed.".format(data.status)
+                e.error_message = pp.pformat(data)
+                e.save()
+                continue
 
             if 'entries' not in data:
                 continue

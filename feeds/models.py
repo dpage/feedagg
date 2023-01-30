@@ -105,3 +105,21 @@ class Post(models.Model):
 
     def __str__(self):
         return self.in_feed.name + ': ' + self.title
+
+
+class PollError(models.Model):
+    """
+    Represents a polling error
+    """
+    in_feed = models.ForeignKey(InFeed, on_delete=models.CASCADE,
+                                help_text="The inbound found from where the"
+                                          " post originated.")
+    error_time = models.DateTimeField(auto_now_add=True,
+                                      help_text="The date/time at which the "
+                                                "error was recorded.")
+    error_summary = models.CharField(null=False, blank=False, max_length=1024,
+                                     help_text="A summary of the error.")
+    error_code = models.BigIntegerField(help_text="Any error code associated "
+                                                  "with the error.")
+    error_message = models.TextField(null=False, blank=False,
+                                     help_text="The details of the error.")
