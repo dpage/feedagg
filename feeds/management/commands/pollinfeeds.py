@@ -37,6 +37,7 @@ class Command(BaseCommand):
 
             # Iterate each item, and insert/update as appropriate
             for entry in data.entries:
+                print('Processing: "{}" from "{}"'.format(entry.title, feed))
                 # Set the timezone to UTC
                 ts = dup.parse(entry.published)
                 ts = ts.replace(tzinfo=pytz.UTC)
@@ -68,7 +69,7 @@ class Command(BaseCommand):
                     for key, value in values.items():
                         setattr(post, key, value)
                     post.save()
-                    print('Updated: "{}" from "{}"'.format(entry.title, feed))
+                    print('  - Updated')
                 except Post.DoesNotExist:
                     values['enabled'] = False
                     if feed.auto_publish:
@@ -77,7 +78,7 @@ class Command(BaseCommand):
                     values['guid'] = entry.id
                     post = Post(**values)
                     post.save()
-                    print('Added: "{}" from "{}"'.format(entry.title, feed))
+                    print('  - Added')
 
                 # Stash the latest publication date
                 if post.enabled:
