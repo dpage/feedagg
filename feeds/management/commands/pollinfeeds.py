@@ -68,6 +68,7 @@ class Command(BaseCommand):
                     for key, value in values.items():
                         setattr(post, key, value)
                     post.save()
+                    print('Updated: "{}" from "{}"'.format(entry.title, feed))
                 except Post.DoesNotExist:
                     values['enabled'] = False
                     if feed.auto_publish:
@@ -76,6 +77,7 @@ class Command(BaseCommand):
                     values['guid'] = entry.id
                     post = Post(**values)
                     post.save()
+                    print('Added: "{}" from "{}"'.format(entry.title, feed))
 
                 # Stash the latest publication date
                 if post.enabled:
