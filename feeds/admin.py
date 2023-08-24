@@ -17,6 +17,21 @@ class InFeedAdmin(admin.ModelAdmin):
 class PostAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'published', 'override_pub', 'enabled')
     list_filter = ('enabled', 'in_feed')
+    actions = ['enable', 'disable']
+
+    def enable(self, request, queryset):
+        queryset.update(enabled=True)
+        msg = "Items have been enabled"
+        self.message_user(request, "%s" % msg)
+
+    enable.short_description = "Enable selected posts"
+
+    def disable(self, request, queryset):
+        queryset.update(enabled=False)
+        msg = "Items have been disabled"
+        self.message_user(request, "%s" % msg)
+
+    disable.short_description = "Disable selected posts"
 
 
 class PollErrorAdmin(admin.ModelAdmin):
